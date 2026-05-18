@@ -7,6 +7,7 @@ mkdir -p ~/.config
 ln -sf ~/dotfiles/bashrc ~/.bashrc
 ln -sf ~/dotfiles/vimrc ~/.vimrc
 ln -sf ~/dotfiles/starship.toml ~/.config/starshp.toml
+ln -sf ~/dotfiles/vim/templates ~/.vim/templates
 
 echo "Dotfiles linked!"
 

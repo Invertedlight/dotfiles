@@ -123,4 +123,3 @@ alias bat="batcat"
 
 export EDITOR=vi
 
-

@@ -64,3 +64,5 @@ if filereadable("/etc/vim/vimrc.local")
   source /etc/vim/vimrc.local
 endif
 
+" ========= Shell Script Template ========================
+au bufnewfile * 0r $HOME/.vim/templates/sh_template.temp
