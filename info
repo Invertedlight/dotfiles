@@ -1,0 +1,14 @@
+#!/bin/bash
+
+# dotfiles info
+
+dotfiles_dir="$HOME/dotfiles"
+file_count=$(find "$dotfiles_dir" -maxdepth 1 -type f | wc -l)
+today=$(date +%Y-%m-%d)
+
+echo "=== Dofiles Info ==="
+echo "User: $USER"
+echo "Dotfiles location: $dotfiles_dir"
+echo "Dotfiles count: $file_count"
+echo "Date: $today"
+
