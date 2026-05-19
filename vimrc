@@ -66,3 +66,6 @@ endif
 
 " ========= Shell Script Template ========================
 au bufnewfile * 0r $HOME/.vim/templates/sh_template.temp
+
+set autoindent expandtab tabstop=2 shiftwidth=2
+
