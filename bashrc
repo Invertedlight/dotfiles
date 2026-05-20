@@ -123,3 +123,5 @@ alias bat="batcat"
 
 export EDITOR=vi
 
+export PATH="$HOME/.local/bin:$PATH"
+
