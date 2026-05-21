@@ -69,3 +69,5 @@ au bufnewfile * 0r $HOME/.vim/templates/sh_template.temp
 
 set autoindent expandtab tabstop=2 shiftwidth=2
 
+:nnoremap <F5> "=strftime(" %Y-%m-%d %H:%M:%S")<CR>P
+
