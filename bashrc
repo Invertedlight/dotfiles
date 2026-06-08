@@ -121,7 +121,18 @@ eval "$(starship init bash)"
 
 alias bat="batcat"
 
+# kubectl
+alias k='kubectl'
+#source /etc/bash_completion
+#source <(kubectl completion bash)
+#complete -o default -F __start-kubectl k
+
+
 export EDITOR=vi
 
 export PATH="$HOME/.local/bin:$PATH"
 
+
+### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
+export PATH="/Users/cyberstar/.rd/bin:$PATH"
+### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)

@@ -69,5 +69,36 @@ au bufnewfile * 0r $HOME/.vim/templates/sh_template.temp
 
 set autoindent expandtab tabstop=2 shiftwidth=2
 
-:nnoremap <F5> "=strftime(" %Y-%m-%d %H:%M:%S")<CR>P
+:nnoremap <F5> "=strftime(' %Y-%m-%d %H:%M:%S')<CR>P"
+set clipboard=unnamedplus
+
+
+" Ensure standard Vim features instead of old Vi features
+set nocompatible
+
+" Load filetype detection, plugins, and indentation rules
+filetype plugin indent on
+
+" Set the default indentation to 2 spaces for all files
+set tabstop=2
+set softtabstop=2
+set shiftwidth=2
+set expandtab
+
+" Highlight trailing whitespace in all files
+autocmd BufRead,BufNewFile * match Error /\s\+$/
+
+" Enable auto-indentation
+set autoindent
+
+" Turn on syntax highlighting
+syntax on
+
+" Set backspace so it acts more intuitively
+set backspace=indent,eol,start
+
+
+"let @a='5j!!genhdr2j$a '
+let @b='/Last Modified:/:krkrd$i =strftime( "%Y-%m-%d %H:%M:%S" )10kdý5'
+
 
