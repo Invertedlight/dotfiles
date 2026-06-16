@@ -3,7 +3,7 @@
 # Description: Link dotfiles to home directory
 
 [ -f ~/.config ] || mkdir -p ~/.config
-[ -f ~/.vim/templates ] || mkdir -p ~/.vim/templates
+[ -f ~/.vim/ ] || mkdir -p ~/.vim/
 
 ln -sf ~/dotfiles/bashrc ~/.bashrc
 ln -sf ~/dotfiles/vimrc ~/.vimrc
