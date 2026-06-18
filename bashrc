@@ -116,23 +116,35 @@ if ! shopt -oq posix; then
   fi
 fi
 
-
 eval "$(starship init bash)"
 
-alias bat="batcat"
+alias cat="bat"
 
-# kubectl
+source /usr/share/bash-completion/bash_completion
+
+# Source kubectl completion for the main command
+source <(kubectl completion bash)
+
+# Alias setup
 alias k='kubectl'
-#source /etc/bash_completion
-#source <(kubectl completion bash)
-#complete -o default -F __start-kubectl k
+
+# Link your alias to the kubectl completion function
+complete -F __start_kubectl k
 
 
 export EDITOR=vi
 
 export PATH="$HOME/.local/bin:$PATH"
 
+export PATH=$PATH:~/.rd/bin
+
 
 ### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
-export PATH="/Users/cyberstar/.rd/bin:$PATH"
+export PATH="/home/cyberstar/.rd/bin:$PATH"
 ### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+
+
+
+
+
