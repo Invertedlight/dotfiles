@@ -116,9 +116,8 @@ if ! shopt -oq posix; then
   fi
 fi
 
+alias cat='bat'
 eval "$(starship init bash)"
-
-alias cat="bat"
 
 
 export EDITOR=nvim
@@ -133,9 +132,10 @@ export PATH="/home/cyberstar/.rd/bin:$PATH"
 ### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
-source /usr/share/bash-completion/bash_completion
 
+# kubectl
 # Source kubectl completion for the main command
+source /usr/share/bash-completion/bash_completion
 source <(kubectl completion bash)
 
 # Alias setup
