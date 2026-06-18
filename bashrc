@@ -120,17 +120,6 @@ eval "$(starship init bash)"
 
 alias cat="bat"
 
-source /usr/share/bash-completion/bash_completion
-
-# Source kubectl completion for the main command
-source <(kubectl completion bash)
-
-# Alias setup
-alias k='kubectl'
-
-# Link your alias to the kubectl completion function
-complete -F __start_kubectl k
-
 
 export EDITOR=vi
 
@@ -143,6 +132,17 @@ export PATH=$PATH:~/.rd/bin
 export PATH="/home/cyberstar/.rd/bin:$PATH"
 ### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+
+source /usr/share/bash-completion/bash_completion
+
+# Source kubectl completion for the main command
+source <(kubectl completion bash)
+
+# Alias setup
+alias k='kubectl'
+
+# Link your alias to the kubectl completion function
+complete -F __start_kubectl k
 
 
 
