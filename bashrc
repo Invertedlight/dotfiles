@@ -121,7 +121,7 @@ eval "$(starship init bash)"
 alias cat="bat"
 
 
-export EDITOR=vi
+export EDITOR=nvim
 
 export PATH="$HOME/.local/bin:$PATH"
 
