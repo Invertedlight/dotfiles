@@ -147,6 +147,5 @@ PATH=/opt/homebrew/bin/:/Users/cyberstar/.rd/bin:/Users/cyberstar/.local/bin:/Us
 eval "$(~/.local/bin/mise activate bash)"
 export GITHUB_USERNAME=Invertedlight
 
-
 # Set command line to use vi movement and commands
 set -o vi

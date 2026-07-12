@@ -7,4 +7,3 @@ if ! command -v chezmoi >/dev/null; then
 fi
 
 exit 0
-
