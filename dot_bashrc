@@ -16,8 +16,8 @@ HISTCONTROL=ignoreboth
 shopt -s histappend
 
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-HISTSIZE=1000
-HISTFILESIZE=2000
+HISTSIZE=10000
+HISTFILESIZE=20000
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
@@ -116,11 +116,11 @@ if ! shopt -oq posix; then
   fi
 fi
 
-alias cat='bat'
+#alias cat='bat'
 eval "$(starship init bash)"
 
 
-export EDITOR=nvim
+export EDITOR=vim
 
 export PATH="$HOME/.local/bin:$PATH"
 
@@ -128,7 +128,7 @@ export PATH=$PATH:~/.rd/bin
 
 
 ### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
-export PATH="/home/cyberstar/.rd/bin:$PATH"
+export PATH="/Users/cyberstar/.rd/bin:$PATH"
 ### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
@@ -143,8 +143,10 @@ alias k='kubectl'
 
 # Link your alias to the kubectl completion function
 complete -F __start_kubectl k
+PATH=/opt/homebrew/bin/:/Users/cyberstar/.rd/bin:/Users/cyberstar/.local/bin:/Users/cyberstar/.rd/bin:/Users/cyberstar/.local/bin::/Users/cyberstar/.rd/bin:/Users/cyberstar/.local/bin:/Users/cyberstar/.rd/bin:/Users/cyberstar/.local/bin:/Users/cyberstar/.rd/bin:/Users/cyberstar/.local/bin/:/Users/cyberstar/.rd/bin:/Users/cyberstar/.local/bin:/Users/cyberstar/.rd/bin:/Users/cyberstar/.local/bin:/Users/cyberstar/.rd/bin:/Users/cyberstar/.local/bin/:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/pkg/env/global/bin:/Library/Apple/usr/bin:/Users/cyberstar/.rd/bin:/Users/cyberstar/.rd/bin:/Users/cyberstar/.rd/bin:/Users/cyberstar/.rd/bin:/Users/cyberstar/.rd/bin:/Users/cyberstar/.rd/bin
+eval "$(~/.local/bin/mise activate bash)"
+export GITHUB_USERNAME=Invertedlight
 
 
-
-
-
+# Set command line to use vi movement and commands
+set -o vi

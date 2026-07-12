@@ -1,15 +1,10 @@
 #!/bin/bash
 
-# Description: Link dotfiles to home directory
+set -euo pipefail
 
-[ -f ~/.config ] || mkdir -p ~/.config
-[ -f ~/.vim/ ] || mkdir -p ~/.vim/
+if ! command -v chezmoi >/dev/null; then
+    sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply git@github.com:Invertedlight/dotfiles-demo.git
+fi
 
-ln -sf ~/dotfiles/inputrc ~/.inputrc
-ln -sf ~/dotfiles/bashrc ~/.bashrc
-ln -sf ~/dotfiles/vimrc ~/.vimrc
-ln -sf ~/dotfiles/starship.toml ~/.config/starshp.toml
-ln -sf ~/dotfiles/vim/templates ~/.vim/templates
-
-echo "Dotfiles linked!"
+exit 0
 
