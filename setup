@@ -6,4 +6,7 @@ if ! command -v chezmoi >/dev/null; then
     sh -c "$(curl -fsLS get.chezmoi.io)" -- -b $HOME/.local/bin -- init --apply https://github.com/Invertedlight/dotfiles.git
 fi
 
+git config --global user.name "Invertedlight"
+git config --global user.email "james.richardson@invertedlight.com"
+
 exit 0
