@@ -157,6 +157,6 @@ if [[ "$TERM" == "xterm" ]]; then
 fi
 
 # Custom Additions
-set -o vi
+set -o emacs 
 
 
