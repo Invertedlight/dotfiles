@@ -1,10 +1,4 @@
 #!/bin/bash
 
-if [[ "$(uname -s)" == "Darwin" ]]; then
-	echo "Executing Darwin path"
-    /$HOME/.local/bin/mise trust /workspaces/$DEVPOD_WORKSPACE_ID/mise.toml && /$HOME/.local/bin/mise install
-else
-	echo "Executing Linux path"
-    /usr/local/bin/mise trust /workspaces/$DEVPOD_WORKSPACE_ID/mise.toml && /usr/local/bin/mise install
-fi
+/usr/local/bin/mise trust /workspaces/$DEVPOD_WORKSPACE_ID/mise.toml && /usr/local/bin/mise install
 
