@@ -1,9 +1,9 @@
 #!/bin/bash
 
 if ! command -v chezmoi >/dev/null; then
-    #sh -c "$(curl -fsLS get.chezmoi.io)" -- -b $HOME/.local/bin -- init --apply git@github.com:Invertedlight/dotfiles.git
+    sh -c "$(curl -fsLS get.chezmoi.io)" -- -b $HOME/.local/bin -- init --apply git@github.com:Invertedlight/dotfiles.git
     #sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply git@github.com:Invertedlight/dotfiles.git
-    sh -c "$(curl -fsLS get.chezmoi.io)" -- -b $HOME/.local/bin -- init --apply https://github.com/Invertedlight/dotfiles.git
+    #sh -c "$(curl -fsLS get.chezmoi.io)" -- -b $HOME/.local/bin -- init --apply https://github.com/Invertedlight/dotfiles.git
 
 fi
 
