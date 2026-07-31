@@ -246,4 +246,11 @@ fi
 
 set -o emacs
 
+<<<<<<< HEAD
 #Change for the sake of change
+=======
+# Setup arrow keys for left right option moving forward back works
+bindkey '^[[1;3D' backward-word                                                                                                                 [INSERT]
+bindkey '^[[1;3C' forward-word
+ 
+>>>>>>> 696e4ca (add arrow key behavior)
