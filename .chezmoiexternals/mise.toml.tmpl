@@ -1,4 +1,4 @@
-{{ if ne "$(uname -s)" "Darwin" }}
+{{ if ne .chezmoi.os "darwin" }}
 [".local/bin/mise"]
 type = "file"
 executable = true
