@@ -1,4 +1,5 @@
 [tools]
 bat = "latest"
 chezmoi = "latest"
-
+starship = "latest"
+fd = "latest"
