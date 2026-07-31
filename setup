@@ -3,7 +3,13 @@
 set -euo pipefail
 
 if ! command -v chezmoi >/dev/null; then
+<<<<<<< HEAD
     sh -c "$(curl -fsLS get.chezmoi.io)" -- -b $HOME/.local/bin -- init --apply git@github.com:Invertedlight/dotfiles.git
+=======
+    #sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply git@github.com:Invertedlight/dotfiles.git
+    sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply https://github.com/Invertedlight/dotfiles.git
+
+>>>>>>> 0157577 (Switch to public git pull)
 fi
 
 git config --global user.name "Invertedlight"
