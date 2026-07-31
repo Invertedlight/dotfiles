@@ -1,5 +1,8 @@
 #!/bin/bash
 
-/usr/local/bin/mise trust /workspaces/$DEVPOD_WORKSPACE_ID/mise.toml && /usr/local/bin/mise install
-
+if [[ "$(uname -s)" == "Darwin" ]]; then
+    /$HOME/.local/bin/mise trust /workspaces/$DEVPOD_WORKSPACE_ID/mise.toml && /$HOME/.local/bin/mise install
+else
+    /usr/local/bin/mise trust /workspaces/$DEVPOD_WORKSPACE_ID/mise.toml && /usr/local/bin/mise install
+fi
 
