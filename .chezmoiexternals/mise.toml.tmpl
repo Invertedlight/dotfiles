@@ -1,4 +1,9 @@
+<<<<<<< HEAD
 {{ if ne .chezmoi.hostname "mac-beast" }}
+=======
+#{{ if ne .chezmoi.hostname "mac-beast" }}
+{{ if ne "$(uname -s)" "Darwin" }}
+>>>>>>> 7e3ff67 (auto setup mise)
 [".local/bin/mise"]
 type = "file"
 executable = true
