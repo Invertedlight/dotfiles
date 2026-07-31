@@ -107,3 +107,4 @@ DISABLE_UPDATE_PROMPT=true
 
 set -o emacs
 
+eval "$(mise activate zsh)"
