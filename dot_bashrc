@@ -160,5 +160,5 @@ fi
 # James's Custom Additions - emacs shell 
 set -o emacs 
 
-
+eval "$(starship init bash)"
 eval "$(mise activate bash)"
