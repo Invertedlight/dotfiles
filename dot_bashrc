@@ -167,5 +167,5 @@ alias dp='devpod up . --recreate'
 alias dps='devpod ssh'
 
 echo "ACTIVATING STARSHIP AND MISE ==================================================="
-eval "$(starship init bash)"
 eval "$(mise activate bash)"
+eval "$(starship init bash)"
