@@ -140,8 +140,8 @@ if type brew &>/dev/null; then
   fi
 
 
-  # Enable Vi mode
-bindkey -v
+  # Enable emacs mode
+bindkey -e
 export KEYTIMEOUT=1
 
 # Dynamically change the prompt to show mode (NORMAL/INSERT)
@@ -183,8 +183,8 @@ prompt pure
 
 
 # enable zsh vi-mode
-bindkey -v
-export KEYTIMEOUT=1 # make switching between modes faster
+#bindkey -v
+#export KEYTIMEOUT=1 # make switching between modes faster
 
 
 # ~~~~~~~~~~~~~~~ Environment Variables ~~~~~~~~~~~~~~~~~~~~~~~~
@@ -247,6 +247,19 @@ fi
 set -o emacs
 
 # Setup arrow keys for left right option moving forward back works
-bindkey '^[[1;3D' backward-word                                                                                                                 [INSERT]
+# Option/Alt + Left Arrow (move back one word)
+bindkey '^[b' backward-word
+bindkey '^[[1;3D' backward-word
+
+# Option/Alt + Right Arrow (move forward one word)
+bindkey '^[f' forward-word
 bindkey '^[[1;3C' forward-word
  
+alias c='chezmoi'
+alias ccd='c cd'
+alias t='cd ~/repos/test-code'
+
+# Remove / from WORDCHARS so zsh stops at / when navigating words
+WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
+
+
