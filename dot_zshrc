@@ -258,8 +258,8 @@ bindkey '^[[1;3C' forward-word
 alias c='chezmoi'
 alias ccd='c cd'
 alias t='cd ~/repos/test-code'
-dp='devpod up . --recreate'
-dps='devpod ssh'
+alias dp='devpod up . --recreate'
+alias dps='devpod ssh'
 
 # Remove / from WORDCHARS so zsh stops at / when navigating words
 WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'

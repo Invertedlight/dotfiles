@@ -159,6 +159,6 @@ fi
 
 # James's Custom Additions - emacs shell 
 set -o emacs 
-
+echo "ACTIVATING STARSHIP AND MISE ==================================================="
 eval "$(starship init bash)"
 eval "$(mise activate bash)"
