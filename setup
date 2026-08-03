@@ -5,7 +5,7 @@ set -euo pipefail
 XDG_CONFIG_HOME="$HOME/.config"
 
 if command -v zsh >/dev/null; then
-  sudo chsh -s $ (command -v zsh) $USER
+  sudo chsh -s "$(command -v zsh)" $USER
 fi
 
 if ! command -v chezmoi >/dev/null; then
