@@ -169,3 +169,7 @@ alias dps='devpod ssh'
 echo "ACTIVATING STARSHIP AND MISE ==================================================="
 eval "$(mise activate bash)"
 eval "$(starship init bash)"
+
+# Remove / from WORDCHARS so zsh stops at / when navigating words
+WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
+
