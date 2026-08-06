@@ -264,12 +264,3 @@ alias dps='devpod ssh'
 # Remove / from WORDCHARS so zsh stops at / when navigating words
 WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
 
-# Ensure ssh-agent is running and keys are loaded
-
-if ! ssh-add -l 2>/dev/null | grep -qF "id_ed25519_sk_github"; then
-  ssh-add ~/.ssh/id_ed25519_sk_github 2>/dev/null
-fi
-if ! ssh-add -l 2>/dev/null | grep -qF "id_ed25519_sk_github_backup"; then
-  ssh-add ~/.ssh/id_ed25519_sk_github_backup 2>/dev/null
-fi
-

@@ -1,4 +1,4 @@
-
+# zprofile - for login
 
 eval "$(/opt/homebrew/bin/brew shellenv zsh)"
 alias cat="bat"
@@ -7,11 +7,22 @@ alias cat="bat"
 bindkey '^[[1;3D' backward-word                                                                                                                 [INSERT]
 bindkey '^[[1;3C' forward-word
 
-# Start and bind ONE ssh-agent socket globally to be reused by all terminal sessions
-if [ -z "$SSH_AUTH_SOCK" ] || [ ! -S "$SSH_AUTH_SOCK" ]; then
+# Always use a real user ssh-agent for SK keys
+unset SSH_AUTH_SOCK
+unset SSH_AGENT_PID
+
+if ! pgrep -x ssh-agent >/dev/null; then
   eval "$(ssh-agent -s)" >/dev/null
 fi
 
 export SSH_AUTH_SOCK
 export SSH_AGENT_PID
+
+# Optional: only add if missing
+if ! ssh-add -l 2>/dev/null | grep -qF "id_ed25519_sk_github"; then
+  ssh-add ~/.ssh/id_ed25519_sk_github 2>/dev/null
+fi
+if ! ssh-add -l 2>/dev/null | grep -qF "id_ed25519_sk_github_backup"; then
+  ssh-add ~/.ssh/id_ed25519_sk_github_backup 2>/dev/null
+fi
 
