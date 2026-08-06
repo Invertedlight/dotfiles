@@ -264,3 +264,6 @@ alias dps='devpod ssh'
 # Remove / from WORDCHARS so zsh stops at / when navigating words
 WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
 
+# alias ssh to use -A for key auth pass through to servers for git authorization
+alias ssa=ssh -A
+
