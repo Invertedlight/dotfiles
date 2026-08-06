@@ -1,0 +1,17 @@
+
+
+eval "$(/opt/homebrew/bin/brew shellenv zsh)"
+alias cat="bat"
+
+# Setup arrow keys for left right option moving forward back works
+bindkey '^[[1;3D' backward-word                                                                                                                 [INSERT]
+bindkey '^[[1;3C' forward-word
+
+# Start and bind ONE ssh-agent socket globally to be reused by all terminal sessions
+if [ -z "$SSH_AUTH_SOCK" ] || [ ! -S "$SSH_AUTH_SOCK" ]; then
+  eval "$(ssh-agent -s)" >/dev/null
+fi
+
+export SSH_AUTH_SOCK
+export SSH_AGENT_PID
+

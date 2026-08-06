@@ -265,12 +265,6 @@ alias dps='devpod ssh'
 WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
 
 # Ensure ssh-agent is running and keys are loaded
-# Reuse whatever agent socket the session already has
-if [ -z "$SSH_AUTH_SOCK" ] || [ ! -S "$SSH_AUTH_SOCK" ]; then
-  eval "$(ssh-agent -s)" >/dev/null
-  export SSH_AUTH_SOCK
-  export SSH_AGENT_PID
-fi
 
 if ! ssh-add -l 2>/dev/null | grep -qF "id_ed25519_sk_github"; then
   ssh-add ~/.ssh/id_ed25519_sk_github 2>/dev/null
