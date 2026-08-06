@@ -264,4 +264,12 @@ alias dps='devpod ssh'
 # Remove / from WORDCHARS so zsh stops at / when navigating words
 WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
 
+# Ensure ssh-agent is running and keys are loaded
+if [ -z "$SSH_AUTH_SOCK" ] || [ ! -S "$SSH_AUTH_SOCK" ]; then
+  eval "$(ssh-agent -s)" >/dev/null
+fi
 
+ssh-add -l >/dev/null 2>&1 || true
+ssh-add -q ~/.ssh/id_ed25519_sk_github >/dev/null 2>&1 || true
+ssh-add -q ~/.ssh/id_ed25519_sk_github_backup >/dev/null 2>&1 || true
+ssh-add -q ~/.ssh/id_ed25519_sk >/dev/null 2>&1 || true
