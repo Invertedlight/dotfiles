@@ -8,15 +8,16 @@ bindkey '^[[1;3D' backward-word                                                 
 bindkey '^[[1;3C' forward-word
 
 # Always use a real user ssh-agent for SK keys
-unset SSH_AUTH_SOCK
-unset SSH_AGENT_PID
-
-if ! pgrep -x ssh-agent >/dev/null; then
+# Reuse an existing agent socket if valid; otherwise start one once
+if [ -S "$SSH_AUTH_SOCK" ] && [ -n "$SSH_AUTH_SOCK" ]; then
+  export SSH_AUTH_SOCK
+else
+  unset SSH_AUTH_SOCK
+  unset SSH_AGENT_PID
   eval "$(ssh-agent -s)" >/dev/null
+  export SSH_AUTH_SOCK
+  export SSH_AGENT_PID
 fi
-
-export SSH_AUTH_SOCK
-export SSH_AGENT_PID
 
 # Optional: only add if missing
 if ! ssh-add -l 2>/dev/null | grep -qF "id_ed25519_sk_github"; then
