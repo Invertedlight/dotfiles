@@ -9,21 +9,28 @@ bindkey '^[[1;3C' forward-word
 
 # Always use a real user ssh-agent for SK keys
 # Reuse an existing agent socket if valid; otherwise start one once
-if [[ -n "$SSH_AUTH_SOCK" && -S "$SSH_AUTH_SOCK" && "$SSH_AUTH_SOCK" != /var/run/com.apple.launchd.* ]]; then
-  export SSH_AUTH_SOCK
-else
+# Only start ssh-agent if no user ssh-agent is already running
+if ! pgrep -x ssh-agent >/dev/null; then
   unset SSH_AUTH_SOCK
   unset SSH_AGENT_PID
+  eval "$(ssh-agent -s)" >/dev/null
+fi
+
+# If we have a usable socket from somewhere, keep it; otherwise infer from current ssh-agent
+if [[ -n "$SSH_AUTH_SOCK" && -S "$SSH_AUTH_SOCK" && "$SSH_AUTH_SOCK" != /var/run/com.apple.launchd.* ]]; then
+  export SSH_AUTH_SOCK
+  export SSH_AGENT_PID
+else
+  # Ask ssh-agent to print the correct env and reuse it
   eval "$(ssh-agent -s)" >/dev/null
   export SSH_AUTH_SOCK
   export SSH_AGENT_PID
 fi
 
-# Optional: only add if missing
+# Load keys into the current agent only if missing
 if ! ssh-add -l 2>/dev/null | grep -qF "id_ed25519_sk_github"; then
   ssh-add ~/.ssh/id_ed25519_sk_github 2>/dev/null
 fi
 if ! ssh-add -l 2>/dev/null | grep -qF "id_ed25519_sk_github_backup"; then
   ssh-add ~/.ssh/id_ed25519_sk_github_backup 2>/dev/null
 fi
-
