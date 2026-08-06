@@ -4,7 +4,7 @@ eval "$(/opt/homebrew/bin/brew shellenv zsh)"
 alias cat="bat"
 
 # Setup arrow keys for left right option moving forward back works
-bindkey '^[[1;3D' backward-word                                                                                                                 [INSERT]
+bindkey '^[[1;3D' backward-word 
 bindkey '^[[1;3C' forward-word
 
 # Always use a real user ssh-agent for SK keys
