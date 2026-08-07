@@ -10,6 +10,7 @@ fi
 
 if ! command -v chezmoi >/dev/null; then
     sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply https://github.com/Invertedlight/dotfiles.git
+    ./bin/chezmoi init
 fi
 
 if [ ! -d "$HOME/.zsh" ]; then
