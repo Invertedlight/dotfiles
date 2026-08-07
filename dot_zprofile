@@ -7,27 +7,27 @@ alias cat="bat"
 bindkey '^[[1;3D' backward-word 
 bindkey '^[[1;3C' forward-word
 
-# Always use a real user ssh-agent for SK keys
-# Reuse an existing agent socket if valid; otherwise start one once
-# Only start ssh-agent if no user ssh-agent is already running
-if ! pgrep -x ssh-agent >/dev/null; then
+# Always avoid launchd's SSH agent socket
+if [[ -n "$SSH_AUTH_SOCK" && "$SSH_AUTH_SOCK" == /var/run/com.apple.launchd.* ]]; then
   unset SSH_AUTH_SOCK
   unset SSH_AGENT_PID
-  eval "$(ssh-agent -s)" >/dev/null
 fi
 
-# If we have a usable socket from somewhere, keep it; otherwise infer from current ssh-agent
-if [[ -n "$SSH_AUTH_SOCK" && -S "$SSH_AUTH_SOCK" && "$SSH_AUTH_SOCK" != /var/run/com.apple.launchd.* ]]; then
-  export SSH_AUTH_SOCK
-  export SSH_AGENT_PID
-else
-  # Ask ssh-agent to print the correct env and reuse it
+SSH_AGENT_ENV_FILE="$HOME/.ssh/ssh-agent.env"
+
+if [ -f "$SSH_AGENT_ENV_FILE" ]; then
+  . "$SSH_AGENT_ENV_FILE" >/dev/null 2>&1
+fi
+
+# If still no usable socket, start one once and persist it
+if [ -z "$SSH_AUTH_SOCK" ] || [ ! -S "$SSH_AUTH_SOCK" ]; then
   eval "$(ssh-agent -s)" >/dev/null
   export SSH_AUTH_SOCK
   export SSH_AGENT_PID
+  printf 'export SSH_AUTH_SOCK=%q\nexport SSH_AGENT_PID=%q\n' "$SSH_AUTH_SOCK" "$SSH_AGENT_PID" > "$SSH_AGENT_ENV_FILE"
 fi
 
-# Load keys into the current agent only if missing
+# Load keys into this agent only if missing
 if ! ssh-add -l 2>/dev/null | grep -qF "id_ed25519_sk_github"; then
   ssh-add ~/.ssh/id_ed25519_sk_github 2>/dev/null
 fi
