@@ -265,5 +265,5 @@ alias dps='devpod ssh'
 WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
 
 # alias ssh to use -A for key auth pass through to servers for git authorization
-alias ssa=ssh -A
+alias ssa="sh -A"
 
