@@ -10,7 +10,8 @@
 # load a random theme each time Oh My Zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="devcontainers"
+export ZSH_THEM=E"devcontainers"
+
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME="devcontainers"
@@ -72,7 +73,7 @@ ZSH_THEME="devcontainers"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git)
+export plugins=(git)
 
 #source $ZSH/oh-my-zsh.sh
 
@@ -104,14 +105,14 @@ plugins=(git)
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-DISABLE_AUTO_UPDATE=true
-DISABLE_UPDATE_PROMPT=true
+export DISABLE_AUTO_UPDATE=true
+export DISABLE_UPDATE_PROMPT=true
 
 set -o emacs
 
 eval "$(mise activate zsh)"
 eval "$(starship init zsh)"
-PATH="$HOME/.local/bin/:$PATH"
+export PATH="$HOME/.local/bin/:$PATH"
 
 # enable color support of ls and also add handy aliases
 alias fgrep='fgrep --color=auto'
@@ -148,14 +149,14 @@ export KEYTIMEOUT=1
 
 # Dynamically change the prompt to show mode (NORMAL/INSERT)
 function zle-keymap-select() {
-    RPS1="${${KEYMAP/vicmd/[NORMAL]}/(main|viins)/[INSERT]}"
+    export RPS1="${${KEYMAP/vicmd/[NORMAL]}/(main|viins)/[INSERT]}"
     zle reset-prompt
 }
 zle -N zle-keymap-select
 
 # Ensure the prompt updates correctly when you start a new line
 function zle-line-init() {
-    RPS1="${${KEYMAP/vicmd/[NORMAL]}/(main|viins)/[INSERT]}"
+    export RPS1="${${KEYMAP/vicmd/[NORMAL]}/(main|viins)/[INSERT]}"
     zle reset-prompt
 }
 zle -N zle-line-init
@@ -164,20 +165,20 @@ zle -N zle-line-init
 # ~~~~~~~~~~~~~~~ History ~~~~~~~~~~~~~~~~~~~~~~~~
 
 
-HISTFILE="$HOME/.zsh_history"
-HISTSIZE=100000
-SAVEHIST=100000
+export HISTFILE="$HOME/.zsh_history"
+export HISTSIZE=100000
+export SAVEHIST=100000
 
 
 # ~~~~~~~~~~~~~~~ Prompt ~~~~~~~~~~~~~~~~~~~~~~~~
 
 
-PURE_GIT_PULL=0
+export PURE_GIT_PULL=0
 
 if [[ "$OSTYPE" == darwin* ]]; then
   fpath+=("$(brew --prefix)/share/zsh/site-functions")
 else
-  fpath+=($HOME/.zsh/pure)
+  fpath+=("$HOME"/.zsh/pure)
 fi
 autoload -U promptinit; promptinit
 
@@ -264,7 +265,7 @@ alias dp='devpod up . --recreate'
 alias dps='devpod ssh'
 
 # Remove / from WORDCHARS so zsh stops at / when navigating words
-WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
+export WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
 
 # alias ssh to use -A for key auth pass through to servers for git authorization
 alias ssa="ssh -A"
