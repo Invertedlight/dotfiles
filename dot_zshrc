@@ -272,4 +272,4 @@ alias ssa="ssh -A"
 export GITHUB_USER="Invertedlight"
 
 export KUBECONFIG="$HOME/.kube/config"
-
+export TERM=xterm-256color

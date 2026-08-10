@@ -267,11 +267,9 @@ alias dps='devpod ssh'
 export WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
 
 # alias ssh to use -A for key auth pass through to servers for git authorization
-echo "============= got here 1 before ssa alias ==========================="
 
 alias ssa="ssh -A"
 export GITHUB_USER="Invertedlight"
 
 export KUBECONFIG="$HOME/.kube/config"
-echo "============= got here After kubeconfig ==========================="
 
