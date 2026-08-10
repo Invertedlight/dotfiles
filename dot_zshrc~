@@ -130,13 +130,12 @@ alias k='kubectl'
 #source <(kubectl completion bash)
 #complete -o default -f __start_kubectl k
 
-
 ### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
 export PATH="/Users/cyberstar/.rd/bin:$PATH"
 ### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)
 
 if type brew &>/dev/null; then
-    export FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
+    FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
 
     autoload -Uz compinit
     compinit
@@ -176,9 +175,9 @@ export SAVEHIST=100000
 export PURE_GIT_PULL=0
 
 if [[ "$OSTYPE" == darwin* ]]; then
-  export fpath+=("$(brew --prefix)/share/zsh/site-functions")
+  fpath+=("$(brew --prefix)/share/zsh/site-functions")
 else
-  export fpath+=("$HOME"/.zsh/pure)
+  fpath+=("$HOME"/.zsh/pure)
 fi
 autoload -U promptinit; promptinit
 
@@ -268,7 +267,11 @@ alias dps='devpod ssh'
 export WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
 
 # alias ssh to use -A for key auth pass through to servers for git authorization
+echo "============= got here 1 before ssa alias ==========================="
+
 alias ssa="ssh -A"
-alias GITHUB_USER="Invertedlight"
+export GITHUB_USER="Invertedlight"
 
 export KUBECONFIG="$HOME/.kube/config"
+echo "============= got here After kubeconfig ==========================="
+

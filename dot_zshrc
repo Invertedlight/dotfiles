@@ -130,7 +130,6 @@ alias k='kubectl'
 #source <(kubectl completion bash)
 #complete -o default -f __start_kubectl k
 
-
 ### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
 export PATH="/Users/cyberstar/.rd/bin:$PATH"
 ### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)
@@ -268,7 +267,9 @@ alias dps='devpod ssh'
 export WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
 
 # alias ssh to use -A for key auth pass through to servers for git authorization
+
 alias ssa="ssh -A"
-alias GITHUB_USER="Invertedlight"
+export GITHUB_USER="Invertedlight"
 
 export KUBECONFIG="$HOME/.kube/config"
+
