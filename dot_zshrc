@@ -266,4 +266,4 @@ WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
 
 # alias ssh to use -A for key auth pass through to servers for git authorization
 alias ssa="sh -A"
-
+alias GITHUB_USER="Invertedlight"
