@@ -273,3 +273,6 @@ export GITHUB_USER="Invertedlight"
 
 #export KUBECONFIG="$HOME/.kube/config"
 export TERM=xterm-256color
+
+eval "$(direnv hook zsh)"
+
