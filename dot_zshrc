@@ -112,7 +112,7 @@ set -o emacs
 
 eval "$(mise activate zsh)"
 eval "$(starship init zsh)"
-export PATH="$HOME/.local/bin/:$PATH"
+export PATH="$HOME/.local/bin/:/opt/homebrew/bin/:$PATH"
 
 # enable color support of ls and also add handy aliases
 alias fgrep='fgrep --color=auto'
@@ -179,7 +179,7 @@ if [[ "$OSTYPE" == darwin* ]]; then
 else
   fpath+=("$HOME"/.zsh/pure)
 fi
-autoload -U promptinit; promptinit
+autoload -U promptinit;
 
 prompt pure
 
@@ -204,7 +204,7 @@ export LANG="en_US.UTF-8"
 
 
 if command -v mise > /dev/null ; then
-  eval "$($HOME/.local/bin/mise activate zsh)"
+  eval "$(mise activate zsh)"
 fi
 
 
