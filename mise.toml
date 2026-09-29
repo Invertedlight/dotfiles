@@ -1,6 +1,5 @@
 [tools]
 bat = "latest"
 chezmoi = "latest"
-neovim = "latest"
 starship = "latest"
 vim = "latest"
