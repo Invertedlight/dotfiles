@@ -283,3 +283,8 @@ if command -v direnv >/dev/null 2>&1; then
   direnv allow .
   eval "$(direnv hook zsh)"
 fi
+export KUBECONFIG="$HOME/.kube/config"
+# macOS: FIDO (-sk) keys via Apple's built-in libfido2 provider (Mac only)
+if [[ "$OSTYPE" == darwin* ]]; then
+  export SSH_SK_PROVIDER="/usr/lib/libsk-libfido2.dylib"
+fi

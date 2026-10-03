@@ -177,3 +177,13 @@ command -v starship >/dev/null 2>&1 && eval "$(starship init bash)"
 # Remove / from WORDCHARS so zsh stops at / when navigating words
 WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
 
+# macOS: FIDO (-sk) keys via Apple's built-in libfido2 provider (Mac only)
+if [ "$(uname -s)" = "Darwin" ]; then
+  export SSH_SK_PROVIDER="/usr/lib/libsk-libfido2.dylib"
+fi
+
+if [ -d "/Users/cyberstar/.rd/bin" ]; then
+### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
+export PATH="/Users/cyberstar/.rd/bin:$PATH"
+### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)
+fi
