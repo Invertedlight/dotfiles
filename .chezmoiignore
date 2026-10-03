@@ -1,0 +1,14 @@
+# Repo-only files: never deploy these into $HOME.
+README.md
+setup
+setup~
+scripts/
+mise.toml
+bin/
+.devcontainer.json
+.devcontainer.json~
+# editor backup / undo files
+*~
+**/*~
+*.un~
+**/*.un~

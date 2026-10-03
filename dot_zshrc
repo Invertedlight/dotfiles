@@ -10,7 +10,7 @@
 # load a random theme each time Oh My Zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-export ZSH_THEM=E"devcontainers"
+export ZSH_THEME="devcontainers"
 
 
 # Set list of themes to pick from when loading at random
@@ -110,9 +110,12 @@ export DISABLE_UPDATE_PROMPT=true
 
 set -o emacs
 
-eval "$(mise activate zsh)"
-eval "$(starship init zsh)"
+# Homebrew: only if installed (idempotent, no-op when brew is missing)
+[ -r "$HOME/.config/shell/brew-env.sh" ] && . "$HOME/.config/shell/brew-env.sh"
+
 export PATH="$HOME/.local/bin/:$PATH"
+command -v mise >/dev/null 2>&1 && eval "$(mise activate zsh)"
+command -v starship >/dev/null 2>&1 && eval "$(starship init zsh)"
 
 # enable color support of ls and also add handy aliases
 alias fgrep='fgrep --color=auto'
@@ -130,9 +133,11 @@ alias k='kubectl'
 #source <(kubectl completion bash)
 #complete -o default -f __start_kubectl k
 
+if [[ -d "/Users/cyberstar/.rd/bin" ]]; then
 ### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
 export PATH="/Users/cyberstar/.rd/bin:$PATH"
 ### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)
+fi
 
 if type brew &>/dev/null; then
     FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
@@ -174,9 +179,9 @@ export SAVEHIST=100000
 
 export PURE_GIT_PULL=0
 
-if [[ "$OSTYPE" == darwin* ]]; then
+if [[ "$OSTYPE" == darwin* ]] && command -v brew >/dev/null 2>&1; then
   fpath+=("$(brew --prefix)/share/zsh/site-functions")
-else
+elif [[ -d "$HOME/.zsh/pure" ]]; then
   fpath+=("$HOME"/.zsh/pure)
 fi
 autoload -U promptinit; promptinit
@@ -204,7 +209,7 @@ export LANG="en_US.UTF-8"
 
 
 if command -v mise > /dev/null ; then
-  eval "$($HOME/.local/bin/mise activate zsh)"
+  eval "$(mise activate zsh)"
 fi
 
 
@@ -274,5 +279,12 @@ export GITHUB_USER="Invertedlight"
 #export KUBECONFIG="$HOME/.kube/config"
 export TERM=xterm-256color
 
-direnv allow .
-eval "$(direnv hook zsh)"
+if command -v direnv >/dev/null 2>&1; then
+  direnv allow .
+  eval "$(direnv hook zsh)"
+fi
+export KUBECONFIG="$HOME/.kube/config"
+# macOS: FIDO (-sk) keys via Apple's built-in libfido2 provider (Mac only)
+if [[ "$OSTYPE" == darwin* ]]; then
+  export SSH_SK_PROVIDER="/usr/lib/libsk-libfido2.dylib"
+fi
