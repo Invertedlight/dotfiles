@@ -288,3 +288,7 @@ export KUBECONFIG="$HOME/.kube/config"
 if [[ "$OSTYPE" == darwin* ]]; then
   export SSH_SK_PROVIDER="/usr/lib/libsk-libfido2.dylib"
 fi
+export GOROOT=/usr/local/go
+export GOPATH=$HOME/go
+export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
+
