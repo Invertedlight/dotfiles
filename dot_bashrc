@@ -166,9 +166,13 @@ alias t='cd ~/repos/test-code'
 alias dp='devpod up . --recreate'
 alias dps='devpod ssh'
 
+# Homebrew (only if installed) and a single, reused ssh-agent
+[ -r "$HOME/.config/shell/brew-env.sh" ] && . "$HOME/.config/shell/brew-env.sh"
+[ -r "$HOME/.config/shell/ssh-agent.sh" ] && . "$HOME/.config/shell/ssh-agent.sh"
+
 echo "ACTIVATING STARSHIP AND MISE ==================================================="
-eval "$(mise activate bash)"
-eval "$(starship init bash)"
+command -v mise >/dev/null 2>&1 && eval "$(mise activate bash)"
+command -v starship >/dev/null 2>&1 && eval "$(starship init bash)"
 
 # Remove / from WORDCHARS so zsh stops at / when navigating words
 WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'

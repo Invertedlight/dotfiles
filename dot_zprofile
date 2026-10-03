@@ -1,36 +1,23 @@
 # zprofile - for login
 
-eval "$(/opt/homebrew/bin/brew shellenv zsh)"
+# Homebrew: only if installed (macOS /opt/homebrew or /usr/local, Linux /home/linuxbrew)
+[ -r "$HOME/.config/shell/brew-env.sh" ] && . "$HOME/.config/shell/brew-env.sh"
 alias cat="bat"
 
 # Setup arrow keys for left right option moving forward back works
 bindkey '^[[1;3D' backward-word 
 bindkey '^[[1;3C' forward-word
 
-# Always avoid launchd's SSH agent socket
-if [[ -n "$SSH_AUTH_SOCK" && "$SSH_AUTH_SOCK" == /var/run/com.apple.launchd.* ]]; then
-  unset SSH_AUTH_SOCK
-  unset SSH_AGENT_PID
-fi
+# ssh-agent: reuse a reachable/forwarded agent or start exactly one on a fixed
+# socket (never stacks). On macOS the launchd agent is still avoided.
+[ -r "$HOME/.config/shell/ssh-agent.sh" ] && . "$HOME/.config/shell/ssh-agent.sh"
 
-SSH_AGENT_ENV_FILE="$HOME/.ssh/ssh-agent.env"
-
-if [ -f "$SSH_AGENT_ENV_FILE" ]; then
-  . "$SSH_AGENT_ENV_FILE" >/dev/null 2>&1
-fi
-
-# If still no usable socket, start one once and persist it
-if [ -z "$SSH_AUTH_SOCK" ] || [ ! -S "$SSH_AUTH_SOCK" ]; then
-  eval "$(ssh-agent -s)" >/dev/null
-  export SSH_AUTH_SOCK
-  export SSH_AGENT_PID
-  printf 'export SSH_AUTH_SOCK=%q\nexport SSH_AGENT_PID=%q\n' "$SSH_AUTH_SOCK" "$SSH_AGENT_PID" > "$SSH_AGENT_ENV_FILE"
-fi
-
-# Load keys into this agent only if missing
-if ! ssh-add -l 2>/dev/null | grep -qF "id_ed25519_sk_github"; then
-  ssh-add ~/.ssh/id_ed25519_sk_github 2>/dev/null
-fi
-if ! ssh-add -l 2>/dev/null | grep -qF "id_ed25519_sk_github_backup"; then
-  ssh-add ~/.ssh/id_ed25519_sk_github_backup 2>/dev/null
+# Load keys into this agent only if missing (only keys that exist on this machine)
+if [ -n "$SSH_AUTH_SOCK" ]; then
+  if [ -f ~/.ssh/id_ed25519_sk_github ] && ! ssh-add -l 2>/dev/null | grep -qF "id_ed25519_sk_github"; then
+    ssh-add ~/.ssh/id_ed25519_sk_github 2>/dev/null
+  fi
+  if [ -f ~/.ssh/id_ed25519_sk_github_backup ] && ! ssh-add -l 2>/dev/null | grep -qF "id_ed25519_sk_github_backup"; then
+    ssh-add ~/.ssh/id_ed25519_sk_github_backup 2>/dev/null
+  fi
 fi
