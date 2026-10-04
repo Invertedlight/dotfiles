@@ -20,3 +20,4 @@ k9s = "latest"
 sops = "latest"
 age = "latest"
 tmux = "latest"
+"github:wezterm/wezterm" = { version = "latest", asset_pattern = "wezterm-*.Ubuntu22.04.tar.xz", bin_path = "wezterm/usr/bin", os = ["linux"] }
