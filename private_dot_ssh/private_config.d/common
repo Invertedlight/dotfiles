@@ -1,0 +1,45 @@
+# Shared SSH hosts, managed by chezmoi (Invertedlight/dotfiles).
+# Loaded from ~/.ssh/config via "Include ~/.ssh/config.d/*" on its first line.
+# Keys stay per machine: keep IdentityFile / IdentityAgent in the local ~/.ssh/config.
+
+# Mac mini
+Host mini
+  HostName 192.168.68.70
+  User cyberstar
+
+# Skynet k3s nodes
+Host skynet-cp-01
+  HostName 192.168.68.101
+Host skynet-cp-02
+  HostName 192.168.68.102
+Host skynet-cp-03
+  HostName 192.168.68.103
+Host skynet-wrk-01
+  HostName 192.168.68.111
+Host skynet-wrk-02
+  HostName 192.168.68.112
+Host skynet-wrk-03
+  HostName 192.168.68.113
+Host skynet-wrk-04
+  HostName 192.168.68.114
+Host skynet-* 192.168.68.101 192.168.68.102 192.168.68.103 192.168.68.111 192.168.68.112 192.168.68.113 192.168.68.114
+  User cyberstar
+
+# devpod StatefulSet replicas via NodePort (devpod-nodeport controller).
+# Dotted names so they don't clash with the pods' own "devpod-N" pod-to-pod aliases.
+Host devpod-0.skynet
+  HostName 192.168.68.111
+  Port 32222
+  User vscode
+Host devpod-1.skynet
+  HostName 192.168.68.111
+  Port 32223
+  User vscode
+
+Host github.com
+  User git
+
+# Keep idle sessions alive and drop dead ones after ~90s. Must stay last.
+Host *
+  ServerAliveInterval 30
+  ServerAliveCountMax 3
