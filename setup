@@ -9,8 +9,9 @@ if command -v zsh >/dev/null; then
 fi
 
 if ! command -v chezmoi >/dev/null; then
-    sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply https://github.com/Invertedlight/dotfiles.git
-    ./bin/chezmoi init
+    sh -c "$(curl -fsLS get.chezmoi.io)" -- -b "$HOME/.local/bin" init --apply Invertedlight
+else
+    chezmoi init --apply Invertedlight
 fi
 
 if [ ! -d "$HOME/.zsh" ]; then
