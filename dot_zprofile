@@ -21,3 +21,8 @@ if [ -n "$SSH_AUTH_SOCK" ]; then
     ssh-add ~/.ssh/id_ed25519_sk_github_backup 2>/dev/null
   fi
 fi
+
+# mise: put tool shims on PATH for login shells, including non-interactive ones.
+# Interactive shells also run `mise activate zsh` from .zshrc.
+export PATH="$HOME/.local/bin:$PATH"
+command -v mise >/dev/null 2>&1 && eval "$(mise activate zsh --shims)"

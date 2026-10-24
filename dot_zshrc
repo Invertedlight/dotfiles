@@ -208,9 +208,7 @@ export LANG="en_US.UTF-8"
 # ~~~~~~~~~~~~~~~ Mise ~~~~~~~~~~~~~~~~~~~~~~~~
 
 
-if command -v mise > /dev/null ; then
-  eval "$(mise activate zsh)"
-fi
+# (mise is activated once, near the top of this file)
 
 
 # ~~~~~~~~~~~~~~~ Completion ~~~~~~~~~~~~~~~~~~~~~~~~
