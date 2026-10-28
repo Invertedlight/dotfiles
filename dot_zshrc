@@ -139,6 +139,12 @@ export PATH="/Users/cyberstar/.rd/bin:$PATH"
 ### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)
 fi
 
+# Keep Homebrew ahead of Rancher Desktop's bundled CLIs (docker, kubectl, helm),
+# with ~/.local/bin still first; typeset -U drops duplicate entries. (2026-10-28)
+[ -r "$HOME/.config/shell/brew-env.sh" ] && . "$HOME/.config/shell/brew-env.sh"
+path=("$HOME/.local/bin/" $path)
+typeset -U path PATH
+
 if type brew &>/dev/null; then
     FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
 
