@@ -9,3 +9,9 @@ vim.opt.ignorecase = true
 vim.opt.number = false
 vim.opt.relativenumber = false
 vim.opt.scrolloff = 8
+
+-- Over SSH (e.g. DevPods), yank to the local Mac clipboard via OSC 52 (WezTerm supports it)
+if vim.env.SSH_TTY or vim.env.SSH_CONNECTION then
+  vim.g.clipboard = "osc52"
+  vim.opt.clipboard = "unnamedplus"
+end
