@@ -24,7 +24,7 @@ tmux = "latest"
 
 # --- Added 2026-10-16: Azure/Terraform tooling (comment out if not wanted) ---
 terraform = "1.16.6"
-azure-cli = { version = "latest", python = "3.14" }  # azure-cli deps (pymsalruntime) have no cp315 wheels yet
+azure-cli = { version = "latest", uvx_args = "--prerelease=allow --python 3.13" }  # pymsalruntime has no cp315 wheels; mise 2026.7.15 ignores the python option, so pass --python to uv
 gh = "latest"
 kubectx = "latest"
 python = "3.15"
