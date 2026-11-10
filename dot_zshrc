@@ -129,6 +129,8 @@ alias cat='bat'
 
 # kubectl
 alias k='kubectl'
+# Setup alias for staging-vm-cluster as ks
+alias ks='KUBECONFIG=$HOME/.kube/staging-vm-cluster.yaml kubectl'
 #source /etc/bash_completion
 #source <(kubectl completion bash)
 #complete -o default -f __start_kubectl k
