@@ -14,6 +14,8 @@ bin/
 **/*.un~
 
 # WezTerm is only used on the Macs; skip it on Linux servers.
+# Patterns match destination paths (e.g. .config/wezterm), not source names.
 {{- if ne .chezmoi.os "darwin" }}
-dot_config/wezterm/
+.config/wezterm
+.config/wezterm/**
 {{- end }}
