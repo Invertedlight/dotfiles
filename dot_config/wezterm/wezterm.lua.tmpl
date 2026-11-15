@@ -1,0 +1,36 @@
+{{- $h := trimSuffix ".local" .chezmoi.hostname -}}
+local wezterm = require("wezterm")
+local config = wezterm.config_builder()
+
+-- Machine-specific settings, kept from the config this host already used.
+{{- if eq $h "M5" }}
+config.initial_cols = 120
+config.initial_rows = 44
+config.font_size = 18
+config.color_scheme = "Terminus"
+{{- else if eq $h "Mac-mini" }}
+-- Set default text size (default is 12.0)
+config.font_size = 55.0
+{{- else }}
+config.font_size = 12.0
+{{- end }}
+
+-- Dim inactive panes so the focused pane stands out.
+-- Easy to tune: 1.0 is full colour/brightness, lower is more muted.
+config.inactive_pane_hsb = { saturation = 0.6, brightness = 0.5 }
+
+-- Dim the whole window when it is unfocused. Easy to tune:
+-- lower foreground_text_hsb.saturation/brightness, or window_background_opacity
+-- (1.0 is opaque). Overrides are cleared when the window is focused again.
+wezterm.on("window-focus-changed", function(window, pane)
+  if window:is_focused() then
+    window:set_config_overrides({})
+  else
+    window:set_config_overrides({
+      foreground_text_hsb = { hue = 1.0, saturation = 0.7, brightness = 0.6 },
+      window_background_opacity = 0.85,
+    })
+  end
+end)
+
+return config

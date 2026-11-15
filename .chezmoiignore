@@ -12,3 +12,8 @@ bin/
 **/*~
 *.un~
 **/*.un~
+
+# WezTerm is only used on the Macs; skip it on Linux servers.
+{{- if ne .chezmoi.os "darwin" }}
+dot_config/wezterm/
+{{- end }}
