@@ -196,6 +196,34 @@ autoload -U promptinit; promptinit
 
 prompt adam2 #pure
 
+# Show ".venv" on adam2's second line while a Python virtualenv is active
+export VIRTUAL_ENV_DISABLE_PROMPT=1
+_adam2_venv_marker() {
+  [[ -n "$VIRTUAL_ENV" ]] || return
+  setopt localoptions extendedglob
+  # Project name: venv prompt, else pyvenv.cfg "prompt =", else folder name
+  local name=${VIRTUAL_ENV_PROMPT:-}
+  if [[ -z $name && -r $VIRTUAL_ENV/pyvenv.cfg ]]; then
+    name=${${(M)${(f)"$(<$VIRTUAL_ENV/pyvenv.cfg)"}:#prompt =*}#prompt = }
+  fi
+  name=${name## #}; name=${name%% #}; name=${name#\(}; name=${name%\)}
+  [[ -z $name ]] && name=${VIRTUAL_ENV:h:t}
+  # Centre "(name)" in line 1's dashes, if it fits
+  local w1a=${#${(S%%)prompt_line_1a//(\%([KF1]|)\{*\}|\%[Bbkf])}}
+  local w1b=${#${(S%%)prompt_line_1b//(\%([KF1]|)\{*\}|\%[Bbkf])}}
+  local pad=$(( COLUMNS - w1a - w1b - ${#name} - 2 ))
+  if (( pad >= 2 )); then
+    local l=$(( pad / 2 )) r=$(( pad - pad / 2 ))
+    local mid="%B%F{yellow}(${name})%b%F{$prompt_adam2_color1}"
+    PS1="$prompt_line_1a${(l:l::-:)_z}$mid${(l:r::-:)_z}$prompt_line_1b$prompt_newline${PS1#*"$prompt_newline"}"
+  fi
+  # ".venv" on line 2
+  local tick='\`' mark='%B%F{yellow}.venv%b%F{cyan} '
+  PS1="${PS1/${tick}/${tick}${mark}}"
+}
+autoload -Uz add-zsh-hook
+add-zsh-hook precmd _adam2_venv_marker
+
 
 # enable zsh vi-mode
 #bindkey -v
