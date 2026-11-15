@@ -56,8 +56,29 @@ if [ -n "$force_color_prompt" ]; then
     fi
 fi
 
+# Colour user@host by machine so SSH sessions are visually distinct.
+# 32 green (local Macs), 31 red (skynet), 33 yellow (devpods/other Linux),
+# 35 magenta (unknown SSH), 36 cyan (unknown local).
+_prompt_host_color() {
+  local host="${HOSTNAME:-$(hostname -s 2>/dev/null || hostname 2>/dev/null || true)}"
+  host="${host%%.*}"
+  case "$host" in
+    Mac-mini|M5) printf '32' ;;
+    skynet-cp-*|skynet-wrk-*) printf '31' ;;
+    devpod-*|ubuntu-server-1|ubuntu-desktop-1) printf '33' ;;
+    *)
+      if [ -n "${SSH_CONNECTION:-}" ]; then
+        printf '35'
+      else
+        printf '36'
+      fi
+      ;;
+  esac
+}
+_PROMPT_HOST_COLOR="$(_prompt_host_color)"
+
 if [ "$color_prompt" = yes ]; then
-    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;'"${_PROMPT_HOST_COLOR}"'m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
 else
     PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
 fi
@@ -114,7 +135,8 @@ fi
 # bash theme - partly inspired by https://github.com/ohmyzsh/ohmyzsh/blob/master/themes/robbyrussell.zsh-theme
 __bash_prompt() {
     local userpart='`export XIT=$? \
-        && [ ! -z "${GITHUB_USER:-}" ] && echo -n "\[\033[0;32m\]@${GITHUB_USER:-} " || echo -n "\[\033[0;32m\]\u " \
+        && [ -n "${GITHUB_USER:-}" ] && echo -n "\[\033[0;32m\]@${GITHUB_USER:-} " \
+        && echo -n "\[\033[01;'"${_PROMPT_HOST_COLOR}"'m\]\u@\h " \
         && [ "$XIT" -ne "0" ] && echo -n "\[\033[1;31m\]➜" || echo -n "\[\033[0m\]➜"`'
     local gitbranch='`\
         if [ "$(git config --get devcontainers-theme.hide-status 2>/dev/null)" != 1 ] && [ "$(git config --get codespaces-theme.hide-status 2>/dev/null)" != 1 ]; then \

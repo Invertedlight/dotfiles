@@ -194,7 +194,23 @@ elif [[ -d "$HOME/.zsh/pure" ]]; then
 fi
 autoload -U promptinit; promptinit
 
-prompt adam2 #pure
+# Colour user@host (adam2 color3) by machine so SSH sessions
+# are visually distinct from a local Mac terminal. Other adam2
+# colours stay at their defaults: cyan hyphens, green directory,
+# white input.
+case ${HOST:-$(hostname -s)} in
+  Mac-mini*|M5*) _prompt_host_color=green ;;
+  skynet-cp-*|skynet-wrk-*) _prompt_host_color=red ;;
+  devpod-*|ubuntu-server-1*|ubuntu-desktop-1*) _prompt_host_color=yellow ;;
+  *)
+    if [[ -n ${SSH_CONNECTION:-} ]]; then
+      _prompt_host_color=magenta
+    else
+      _prompt_host_color=cyan
+    fi
+    ;;
+esac
+prompt adam2 cyan green "$_prompt_host_color" white
 
 # Show ".venv" on adam2's second line while a Python virtualenv is active
 export VIRTUAL_ENV_DISABLE_PROMPT=1
