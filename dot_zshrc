@@ -238,8 +238,13 @@ _adam2_extras() {
   local w1b=${#${(S%%)prompt_line_1b//(\%([KF1]|)\{*\}|\%[Bbkf])}}
   local bseg="" vseg="" bw=0 vw=0
   if [[ -n $branch ]]; then
-    bseg="---(%B%F{magenta} ${branch//\%/%%} %b%F{$c1})"
-    bw=$(( 3 + 1 + ${#branch} + 2 + 1 ))
+    # Bold yellow "*" after the name when there are uncommitted changes
+    local dirty="" dw=0
+    if [[ -n $(GIT_OPTIONAL_LOCKS=0 git status --porcelain --ignore-submodules=dirty 2>/dev/null | head -1) ]]; then
+      dirty="%B%F{yellow}*"; dw=1
+    fi
+    bseg="---(%B%F{magenta} ${branch//\%/%%}$dirty %b%F{$c1})"
+    bw=$(( 3 + 1 + ${#branch} + dw + 2 + 1 ))
   fi
   if [[ -n $vname ]]; then
     vseg="%B%F{yellow}(${vname//\%/%%})%b%F{$c1}"
