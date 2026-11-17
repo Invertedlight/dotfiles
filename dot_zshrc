@@ -212,33 +212,59 @@ case ${HOST:-$(hostname -s)} in
 esac
 prompt adam2 cyan green "$_prompt_host_color" white
 
-# Show ".venv" on adam2's second line while a Python virtualenv is active
+# adam2 line 1 extras, run after adam2 builds the prompt:
+#   git branch right after the directory:  .-(~/dir)---( main )-----(user@host)-.
+#   Python virtualenv name centred in the remaining dashes, plus ".venv" on line 2
 export VIRTUAL_ENV_DISABLE_PROMPT=1
-_adam2_venv_marker() {
-  [[ -n "$VIRTUAL_ENV" ]] || return
+_adam2_extras() {
   setopt localoptions extendedglob
-  # Project name: venv prompt, else pyvenv.cfg "prompt =", else folder name
-  local name=${VIRTUAL_ENV_PROMPT:-}
-  if [[ -z $name && -r $VIRTUAL_ENV/pyvenv.cfg ]]; then
-    name=${${(M)${(f)"$(<$VIRTUAL_ENV/pyvenv.cfg)"}:#prompt =*}#prompt = }
+  local branch="" vname=""
+  # Git branch (short commit hash when detached); no lock files taken
+  branch=$(GIT_OPTIONAL_LOCKS=0 git symbolic-ref --short -q HEAD 2>/dev/null ||
+           GIT_OPTIONAL_LOCKS=0 git rev-parse --short -q HEAD 2>/dev/null)
+  if [[ -n "$VIRTUAL_ENV" ]]; then
+    # Project name: venv prompt, else pyvenv.cfg "prompt =", else folder name
+    vname=${VIRTUAL_ENV_PROMPT:-}
+    if [[ -z $vname && -r $VIRTUAL_ENV/pyvenv.cfg ]]; then
+      vname=${${(M)${(f)"$(<$VIRTUAL_ENV/pyvenv.cfg)"}:#prompt =*}#prompt = }
+    fi
+    vname=${vname## #}; vname=${vname%% #}; vname=${vname#\(}; vname=${vname%\)}
+    [[ -z $vname ]] && vname=${VIRTUAL_ENV:h:t}
   fi
-  name=${name## #}; name=${name%% #}; name=${name#\(}; name=${name%\)}
-  [[ -z $name ]] && name=${VIRTUAL_ENV:h:t}
-  # Centre "(name)" in line 1's dashes, if it fits
+  [[ -z $branch && -z $vname ]] && return
+
+  local c1=$prompt_adam2_color1
   local w1a=${#${(S%%)prompt_line_1a//(\%([KF1]|)\{*\}|\%[Bbkf])}}
   local w1b=${#${(S%%)prompt_line_1b//(\%([KF1]|)\{*\}|\%[Bbkf])}}
-  local pad=$(( COLUMNS - w1a - w1b - ${#name} - 2 ))
-  if (( pad >= 2 )); then
-    local l=$(( pad / 2 )) r=$(( pad - pad / 2 ))
-    local mid="%B%F{yellow}(${name})%b%F{$prompt_adam2_color1}"
-    PS1="$prompt_line_1a${(l:l::-:)_z}$mid${(l:r::-:)_z}$prompt_line_1b$prompt_newline${PS1#*"$prompt_newline"}"
+  local bseg="" vseg="" bw=0 vw=0
+  if [[ -n $branch ]]; then
+    bseg="---(%B%F{magenta} ${branch//\%/%%} %b%F{$c1})"
+    bw=$(( 3 + 1 + ${#branch} + 2 + 1 ))
   fi
+  if [[ -n $vname ]]; then
+    vseg="%B%F{yellow}(${vname//\%/%%})%b%F{$c1}"
+    vw=$(( ${#vname} + 2 ))
+  fi
+
+  # Fit what we can on line 1: branch first, then the venv name
+  local tail=$prompt_line_1b tw=$w1b
+  local pad=$(( COLUMNS - w1a - tw - bw - vw ))
+  if (( pad < 2 )) && [[ -n $vseg ]]; then vseg=""; vw=0; pad=$(( COLUMNS - w1a - tw - bw )); fi
+  if (( pad < 1 )); then tail=""; tw=0; pad=$(( COLUMNS - w1a - bw - vw )); fi
+  if (( pad >= 1 )); then
+    local l=$(( pad / 2 )) r=$(( pad - pad / 2 ))
+    [[ -z $vseg ]] && { l=$pad; r=0; }
+    PS1="$prompt_line_1a$bseg${(l:l::-:)_z}$vseg${(l:r::-:)_z}$tail$prompt_newline${PS1#*"$prompt_newline"}"
+  fi
+
   # ".venv" on line 2
-  local tick='\`' mark='%B%F{yellow}.venv%b%F{cyan} '
-  PS1="${PS1/${tick}/${tick}${mark}}"
+  if [[ -n $vname ]]; then
+    local tick='\`' mark='%B%F{yellow}.venv%b%F{cyan} '
+    PS1="${PS1/${tick}/${tick}${mark}}"
+  fi
 }
 autoload -Uz add-zsh-hook
-add-zsh-hook precmd _adam2_venv_marker
+add-zsh-hook precmd _adam2_extras
 
 
 # enable zsh vi-mode
