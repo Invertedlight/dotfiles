@@ -20,11 +20,13 @@ k9s = "latest"
 sops = "latest"
 age = "latest"
 tmux = "latest"
-"github:wezterm/wezterm" = { version = "latest", asset_pattern = "wezterm-*.Ubuntu22.04.tar.xz", bin_path = "wezterm/usr/bin", os = ["linux"] }
+"github:wezterm/wezterm" = { version = "latest", asset_pattern = "wezterm-*.Ubuntu22.04.tar.xz", bin_path = "wezterm/usr/bin", os = [
+  "linux",
+] }
 
 # --- Added 2026-10-16: Azure/Terraform tooling (comment out if not wanted) ---
 terraform = "1.16.6"
-azure-cli = { version = "latest", uvx_args = "--prerelease=allow --python 3.13" }  # pymsalruntime has no cp315 wheels; mise 2026.7.15 ignores the python option, so pass --python to uv
+#azure-cli = { version = "latest", uvx_args = "--prerelease=allow --python 3.13" }  # pymsalruntime has no cp315 wheels; mise 2026.7.15 ignores the python option, so pass --python to uv
 gh = "latest"
 kubectx = "latest"
 python = "3.15"
