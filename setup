@@ -9,9 +9,9 @@ if command -v zsh >/dev/null; then
 fi
 
 if ! command -v chezmoi >/dev/null; then
-    sh -c "$(curl -fsLS get.chezmoi.io)" -- -b "$HOME/.local/bin" init --apply Invertedlight
+  sh -c "$(curl -fsLS get.chezmoi.io)" -- -b "$HOME/.local/bin" init --apply --force Invertedlight
 else
-    chezmoi init --apply Invertedlight
+  chezmoi init --apply --force Invertedlight
 fi
 
 if [ ! -d "$HOME/.zsh" ]; then
@@ -22,7 +22,7 @@ if [ ! -d "$HOME/.zsh/pure" ]; then
   git clone https://github.com/sindresorhus/pure.git "$HOME/.zsh/pure"
 fi
 
-if command -v alacritty > /dev/null; then
+if command -v alacritty >/dev/null; then
   mkdir -p "$XDG_CONFIG_HOME"/alacritty/themes
   git clone https://github.com/alacritty/alacritty-theme "$XDG_CONFIG_HOME"/ alacritty/themes
 fi
