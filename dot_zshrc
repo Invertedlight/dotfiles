@@ -299,7 +299,7 @@ export LANG="en_US.UTF-8"
 
 autoload -Uz compinit && compinit
 
-if command -v fzf > /dev/null ; then
+if command -v fzf > /dev/null && [[ -o zle && -t 0 ]]; then
   source <(fzf --zsh)
 fi
 
