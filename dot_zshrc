@@ -361,7 +361,7 @@ export GITHUB_USER="Invertedlight"
 export TERM=xterm-256color
 
 if command -v direnv >/dev/null 2>&1; then
-  direnv allow .
+  [[ -f .envrc ]] && direnv allow .
   eval "$(direnv hook zsh)"
 fi
 export KUBECONFIG="$HOME/.kube/config"
